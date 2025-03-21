@@ -1,0 +1,22 @@
+[
+    {
+        "OwnerId": "63E29A28-BC90-4CD1-8F9E-AB9834BDDE6C",
+        "FacilityId": "FAC001"
+    },
+    {
+        "OwnerId": "D05780D4-5742-40CA-8403-0FEBD44B1555",
+        "FacilityId": "FAC002"
+    },
+    {
+        "OwnerId": "D05780D4-5742-40CA-8403-0FEBD44B1555",
+        "FacilityId": "FAC002"
+    },
+    {
+        "OwnerId": "63E29A28-BC90-4CD1-8F9E-AB9834BDDE6C",
+        "FacilityId": "FAC005"
+    },
+    {
+        "OwnerId": "63E29A28-BC90-4CD1-8F9E-AB9834BDDE6C",
+        "FacilityId": "FAC004"
+    }
+]

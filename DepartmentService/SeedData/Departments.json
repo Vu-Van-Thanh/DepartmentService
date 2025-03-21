@@ -1,0 +1,28 @@
+[
+    {
+        "DepartmentId": "HR",
+        "DepartmentName": "Human Resources",
+        "Manager": "John Doe",
+        "Description": "Responsible for employee relations and HR policies.",
+        "Location": "New York",
+        "Contact": "+1-555-1234"
+    },
+    {
+        "DepartmentId": "IT",
+        "DepartmentName": "Information Technology",
+        "Manager": "Alice Smith",
+        "Description": "Handles all IT infrastructure and software development.",
+        "Location": "San Francisco",
+        "Contact": "+1-555-5678"
+     
+    },
+    {
+        "DepartmentId": "FN",
+        "DepartmentName": "Finance",
+        "Manager": "Robert Brown",
+        "Description": "Manages company finances and budget planning.",
+        "Location": "Chicago",
+        "Contact": "+1-555-9876"
+
+    }
+]

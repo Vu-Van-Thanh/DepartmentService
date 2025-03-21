@@ -1,0 +1,50 @@
+[
+    {
+        "JobPositionId": "HRM01",
+        "PositionName": "HR Manager",
+        "Level": 1,
+        "Description": "Responsible for managing HR team and policies.",
+        "DepartmentId": "HR",
+        "Manager": "John Doe"
+    },
+    {
+        "JobPositionId": "HRR02",
+        "PositionName": "Recruitment Specialist",
+        "Level": 2,
+        "Description": "Handles recruitment and interviewing processes.",
+        "DepartmentId": "HR",
+        "Manager": "Jane Smith"
+    },
+    {
+        "JobPositionId": "ITS01",
+        "PositionName": "Software Engineer",
+        "Level": 0,
+        "Description": "Develops and maintains software applications.",
+        "DepartmentId": "IT",
+        "Manager": "Alice Johnson"
+    },
+    {
+        "JobPositionId": "ITS02",
+        "PositionName": "System Administrator",
+        "Level": 1,
+        "Description": "Manages IT infrastructure and networks.",
+        "DepartmentId": "IT",
+        "Manager": "Bob Williams"
+    },
+    {
+        "JobPositionId": "FNA01",
+        "PositionName": "Finance Analyst",
+        "Level": 3,
+        "Description": "Analyzes financial data and prepares reports.",
+        "DepartmentId": "FN",
+        "Manager": "Robert Brown"
+    },
+    {
+        "JobPositionId": "FNA02",
+        "PositionName": "Accountant",
+        "Level": 2,
+        "Description": "Manages company financial records and transactions.",
+        "DepartmentId": "FN",
+        "Manager": "Emily Davis"
+    }
+]
