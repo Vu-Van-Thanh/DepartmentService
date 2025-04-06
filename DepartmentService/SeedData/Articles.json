@@ -1,0 +1,44 @@
+[
+  {
+    "ArticleId": "A14FB4B4-9886-437B-ADD1-E4429424F6A2",
+    "Title": "Kế hoạch tuyển dụng năm 2024-2025",
+    "Content": "Để đáp ứng nhu cầu mở rộng và phát triển nhân sự, Công ty đưa ra kế hoạch tuyển dụng chi tiết cho năm 2024-2025, bao gồm các vị trí cần thiết và tiêu chí lựa chọn ứng viên.",
+    "DateCreated": "2024-10-05T10:00:00",
+    "DepartmentId": "HR"
+  },
+  {
+    "ArticleId": "53AA8629-51A7-4810-8E69-0CC8A4C4EBD3",
+    "Title": "Thông báo lịch phỏng vấn tuyển dụng",
+    "Content": "Phòng Nhân sự thông báo lịch phỏng vấn tuyển dụng cho các vị trí trong đợt tuyển dụng tháng 10/2024. Ứng viên cần theo dõi lịch cụ thể để tham gia đúng giờ.",
+    "DateCreated": "2024-10-01T09:00:00",
+    "DepartmentId": "IT"
+  },
+  {
+    "ArticleId": "32460E72-2BA1-420F-B32C-53F4E2E01BE3",
+    "Title": "Hướng dẫn chuẩn bị hồ sơ ứng tuyển",
+    "Content": "Ứng viên cần chuẩn bị hồ sơ đầy đủ theo hướng dẫn của Phòng Nhân sự, bao gồm CV, bằng cấp, chứng chỉ và các giấy tờ liên quan trước khi tham gia phỏng vấn.",
+    "DateCreated": "2024-10-03T14:00:00",
+    "DepartmentId": "FN"
+  },
+  {
+    "ArticleId": "18FC6183-8A57-4DEB-9D26-F28034395FC1",
+    "Title": "Báo cáo tuyển dụng năm 2023",
+    "Content": "Phòng Nhân sự công bố báo cáo tổng kết hoạt động tuyển dụng trong năm 2023, bao gồm số lượng ứng viên, tỷ lệ trúng tuyển và hiệu quả các kênh tuyển dụng.",
+    "DateCreated": "2024-09-30T11:30:00",
+    "DepartmentId": "FN"
+  },
+  {
+    "ArticleId": "9AA5E0DA-57D8-4393-B9C9-5A30374F0703",
+    "Title": "Giới thiệu chương trình đào tạo nội bộ",
+    "Content": "Công ty triển khai nhiều chương trình đào tạo nội bộ nhằm nâng cao kỹ năng chuyên môn và năng lực quản lý cho nhân viên ở các cấp.",
+    "DateCreated": "2024-10-02T12:15:00",
+    "DepartmentId": "IT"
+  },
+  {
+    "ArticleId": "24E5B629-CD94-4364-BB64-63E5A7E72DDA",
+    "Title": "Đánh giá chất lượng đào tạo nội bộ",
+    "Content": "Công ty tổ chức đánh giá định kỳ các chương trình đào tạo nội bộ để cải thiện nội dung và phương pháp giảng dạy, giúp nâng cao hiệu quả học tập của nhân viên.",
+    "DateCreated": "2024-10-04T15:45:00",
+    "DepartmentId": "IT"
+  }
+]

@@ -35,5 +35,7 @@ namespace DepartmentService.API.DTO
             {
                 OwnerId = ownFacilities.OwnerId,
                 FacilityId = ownFacilities.FacilityId
+            };
+        }
     }
 }

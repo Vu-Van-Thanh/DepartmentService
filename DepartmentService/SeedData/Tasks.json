@@ -1,0 +1,50 @@
+[
+  {
+    "TaskId": "550e8400-e29b-41d4-a716-446655440010",
+    "Title": "Thiết kế Database",
+    "Description": "Thiết kế cấu trúc database cho hệ thống HRM",
+    "StartDate": "2024-01-01T00:00:00",
+    "Deadline": "2024-01-15T00:00:00",
+    "CompletedAt": "2024-01-14T00:00:00",
+    "Status": "Completed",
+    "Priority": "High",
+    "ProjectId": "550e8400-e29b-41d4-a716-446655440000",
+    "AssignedTo": "550e8400-e29b-41d4-a716-446655440001",
+    "CreatedAt": "2024-01-01T00:00:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": "2024-01-14T00:00:00",
+    "UpdatedBy": "admin"
+  },
+  {
+    "TaskId": "550e8400-e29b-41d4-a716-446655440011",
+    "Title": "Phát triển API Authentication",
+    "Description": "Xây dựng hệ thống xác thực và phân quyền",
+    "StartDate": "2024-01-16T00:00:00",
+    "Deadline": "2024-01-31T00:00:00",
+    "CompletedAt": null,
+    "Status": "In Progress",
+    "Priority": "High",
+    "ProjectId": "550e8400-e29b-41d4-a716-446655440000",
+    "AssignedTo": "550e8400-e29b-41d4-a716-446655440002",
+    "CreatedAt": "2024-01-16T00:00:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": null,
+    "UpdatedBy": null
+  },
+  {
+    "TaskId": "550e8400-e29b-41d4-a716-446655440012",
+    "Title": "Thiết kế UI/UX",
+    "Description": "Thiết kế giao diện người dùng cho ứng dụng di động",
+    "StartDate": "2024-03-01T00:00:00",
+    "Deadline": "2024-03-15T00:00:00",
+    "CompletedAt": null,
+    "Status": "To Do",
+    "Priority": "Medium",
+    "ProjectId": "550e8400-e29b-41d4-a716-446655440003",
+    "AssignedTo": "550e8400-e29b-41d4-a716-446655440003",
+    "CreatedAt": "2024-03-01T00:00:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": null,
+    "UpdatedBy": null
+  }
+] 

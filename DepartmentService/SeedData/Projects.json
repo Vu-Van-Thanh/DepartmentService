@@ -1,0 +1,41 @@
+[
+  {
+    "ProjectId": "550e8400-e29b-41d4-a716-446655440000",
+    "Name": "HRM System Development",
+    "Description": "Phát triển hệ thống quản lý nhân sự",
+    "StartDate": "2024-01-01T00:00:00",
+    "EndDate": "2024-12-31T00:00:00",
+    "Status": "In Progress",
+    "DepartmentId": "FN",
+    "CreatedAt": "2024-01-01T00:00:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": null,
+    "UpdatedBy": null
+  },
+  {
+    "ProjectId": "550e8400-e29b-41d4-a716-446655440002",
+    "Name": "E-Learning Platform",
+    "Description": "Xây dựng nền tảng học trực tuyến",
+    "StartDate": "2024-02-01T00:00:00",
+    "EndDate": "2024-08-31T00:00:00",
+    "Status": "Planning",
+    "DepartmentId": "FN",
+    "CreatedAt": "2024-02-01T00:00:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": null,
+    "UpdatedBy": null
+  },
+  {
+    "ProjectId": "550e8400-e29b-41d4-a716-446655440003",
+    "Name": "Mobile App Development",
+    "Description": "Phát triển ứng dụng di động",
+    "StartDate": "2024-03-01T00:00:00",
+    "EndDate": "2024-09-30T00:00:00",
+    "Status": "Planning",
+    "DepartmentId": "IT",
+    "CreatedAt": "2024-03-01T00:00:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": null,
+    "UpdatedBy": null
+  }
+] 

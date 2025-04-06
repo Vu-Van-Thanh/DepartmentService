@@ -13,11 +13,11 @@ namespace DepartmentService.API.Services
         Task<bool> DeleteDepartment(string departmentId);
 
     }
-    public class DepartmentService : IDepartmentService
+    public class DepartmentServices : IDepartmentService
     {
         private readonly IDepartmentRepository _departmentRepository;
 
-        public DepartmentService(IDepartmentRepository departmentRepository)
+        public DepartmentServices(IDepartmentRepository departmentRepository)
         {
             _departmentRepository = departmentRepository;
         }

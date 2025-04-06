@@ -6,7 +6,7 @@
         "Description": "Conference room projector",
         "Quantity": 2,
         "UsedQuantity": 1,
-        "Condition": "New",
+        "Condition": 0,
         "PurchaseDate": "2023-05-15T00:00:00",
         "LastMaintenanceDate": "2024-02-10T00:00:00"
     },
@@ -17,7 +17,7 @@
         "Description": "Ergonomic office chairs for HR department",
         "Quantity": 20,
         "UsedQuantity": 18,
-        "Condition": "Good",
+        "Condition": 1,
         "PurchaseDate": "2022-08-20T00:00:00",
         "LastMaintenanceDate": "2024-01-05T00:00:00"
     },
@@ -28,7 +28,7 @@
         "Description": "Data center server rack",
         "Quantity": 5,
         "UsedQuantity": 5,
-        "Condition": "Used",
+        "Condition": 2,
         "PurchaseDate": "2021-11-11T00:00:00",
         "LastMaintenanceDate": "2023-12-15T00:00:00"
     },
@@ -39,7 +39,7 @@
         "Description": "High-performance computers for software development",
         "Quantity": 10,
         "UsedQuantity": 9,
-        "Condition": "New",
+        "Condition": 1,
         "PurchaseDate": "2023-03-10T00:00:00",
         "LastMaintenanceDate": "2024-02-20T00:00:00"
     },
@@ -50,7 +50,7 @@
         "Description": "Enterprise license for financial software",
         "Quantity": 1,
         "UsedQuantity": 1,
-        "Condition": "New",
+        "Condition": 2,
         "PurchaseDate": "2023-07-01T00:00:00",
         "LastMaintenanceDate": null
     }

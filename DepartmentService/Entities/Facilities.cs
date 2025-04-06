@@ -10,7 +10,7 @@ namespace DepartmentService.API.Entities
 
         [StringLength(6)]
         public string FacId { get; set; }
-        [StringLength(2)]
+        [StringLength(10)]
         public string DepartmentId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }

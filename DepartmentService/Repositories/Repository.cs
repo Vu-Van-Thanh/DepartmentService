@@ -56,8 +56,8 @@ namespace DepartmentService.API.Repositories
             if (!entities.Any()) return false; 
 
             _dbSet.RemoveRange(entities); 
-            await _context.SaveChangesAsync(); 
-            return tru
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

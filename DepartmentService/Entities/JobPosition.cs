@@ -14,7 +14,7 @@ namespace DepartmentService.API.Entities
 
         public JobLevel Level { get; set; }
         public string Description { get; set; }
-        [StringLength(2)]
+        [StringLength(10)]
         public string DepartmentId { get; set; }
         public string? Manager { get; set; }
 
