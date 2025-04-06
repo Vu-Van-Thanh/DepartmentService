@@ -24,6 +24,7 @@ namespace DepartmentService.ConfigureServiceExtension
             services.AddScoped<IMediaRepository, MediaRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IProjectTaskRepository, ProjectTaskRepository>();
+            services.AddScoped<IJobPositionRepository, JobPositionRepository>();
 
             // Add Services
             services.AddScoped<IArticleService, ArticleService>();
@@ -33,7 +34,7 @@ namespace DepartmentService.ConfigureServiceExtension
             services.AddScoped<IMediaService, MediaService>();
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IProjectTaskService, ProjectTaskService>();
-
+            services.AddScoped<IJobPositionService, JobPositionService>();
             // Add Controllers
             services.AddControllers();
 
