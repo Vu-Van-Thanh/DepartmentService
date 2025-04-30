@@ -176,7 +176,6 @@ namespace DepartmentService.Services
             
                 try
                 {
-                    
                     string articleType = $"{year} {majorCode}";
 
                     
