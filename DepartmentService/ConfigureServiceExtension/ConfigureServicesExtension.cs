@@ -1,8 +1,12 @@
 ﻿using DepartmentService.API.AppDbContext;
 using DepartmentService.API.Repositories;
 using DepartmentService.API.Services;
+using DepartmentService.Kafka;
+using DepartmentService.Kafka.Consumers.Manual;
+using DepartmentService.Kafka.Producer;
 using DepartmentService.Repositories;
 using DepartmentService.Services;
+using EmployeeService.Infrastructure.Kafka.Consumers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -26,6 +30,7 @@ namespace DepartmentService.ConfigureServiceExtension
             services.AddScoped<IProjectTaskRepository, ProjectTaskRepository>();
             services.AddScoped<IJobPositionRepository, JobPositionRepository>();
 
+
             // Add Services
             services.AddScoped<IArticleService, ArticleService>();
             services.AddScoped<IDepartmentService, DepartmentServices>();
@@ -35,6 +40,11 @@ namespace DepartmentService.ConfigureServiceExtension
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IProjectTaskService, ProjectTaskService>();
             services.AddScoped<IJobPositionService, JobPositionService>();
+            services.Configure<KafkaSettings>(configuration.GetSection("Kafka"));
+            services.AddScoped<IEventProducer, DepartmentProducer>();
+            services.AddScoped<IEventConsumer, ManualDepartmentConsumer>();
+            services.AddHostedService<DepartmentConsumer>();
+
             // Add Controllers
             services.AddControllers();
 
