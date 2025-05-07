@@ -35,7 +35,7 @@ namespace DepartmentService.API.Services
 
         public async Task<DepartmentInfo> GetDepartmentById(string departmentId)
         {
-            return (await _departmentRepository.GetByIdAsync(departmentId)).ToDepartmentInfo();
+            return (await _departmentRepository.GetByIdAsync(Guid.Parse(departmentId))).ToDepartmentInfo();
         }
 
         public async Task<DepartmentInfo> UpsertDepartment(DepartmentUpsertRequest department)

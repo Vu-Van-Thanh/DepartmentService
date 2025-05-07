@@ -43,11 +43,19 @@ namespace DepartmentService.ConfigureServiceExtension
             services.Configure<KafkaSettings>(configuration.GetSection("Kafka"));
             services.AddScoped<IEventProducer, DepartmentProducer>();
             services.AddScoped<IEventConsumer, ManualDepartmentConsumer>();
-            services.AddHostedService<DepartmentConsumer>();
+           // services.AddHostedService<DepartmentConsumer>();
 
             // Add Controllers
             services.AddControllers();
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            });
             // Add Swagger
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(c =>

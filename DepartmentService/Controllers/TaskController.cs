@@ -4,7 +4,7 @@ using DepartmentService.API.DTO;
 
 namespace DepartmentService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class TaskController : ControllerBase
     {

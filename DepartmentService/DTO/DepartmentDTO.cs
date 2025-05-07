@@ -18,7 +18,7 @@ namespace DepartmentService.API.DTO
     }
     public class DepartmentInfo
     {       
-       
+        public string DepartmentId { get; set; }
         public string DepartmentName { get; set; } 
         public string Manager { get; set; } 
         public string Description { get; set; } 
@@ -32,6 +32,7 @@ namespace DepartmentService.API.DTO
         {
             return new DepartmentInfo
             {
+                DepartmentId = department.DepartmentId,
                 DepartmentName = department.DepartmentName,
                 Manager = department.Manager,
                 Description = department.Description,
