@@ -51,7 +51,7 @@ namespace DepartmentService.Services
         }
 
          public async Task<string> RenderArticleContent(Article article)
-        {
+         {
             string? content = article.Content;
             if (content != null)
             {
@@ -104,11 +104,11 @@ namespace DepartmentService.Services
             string monthName = datepost.ToString("MMMM", new System.Globalization.CultureInfo("en-US"));
             string year = datepost.Year.ToString();
 
-            // Tạo đường dẫn URL media tương đối
-            string folderUrl = $"/StaticData/{year}/{monthName}/{nameFolder}{articleID}/";
+            // Tạo đường dẫn URL media tương đối : xóa localhost sau khi có api gateway
+            string folderUrl = $"https://localhost:7176/ArticleUpload/{year}/{monthName}/{nameFolder}{articleID}/";
 
             // Đường dẫn thư mục vật lý (hệ thống tệp) để lưu trữ media
-            string rootFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "A", year, monthName);
+            string rootFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ArticleUpload", year, monthName);
             string targetFolder = Path.Combine(rootFolder, $"{nameFolder}{articleID}");
 
             // Tạo thư mục nếu chưa tồn tại
@@ -174,7 +174,7 @@ namespace DepartmentService.Services
         }
 
          public async Task AddOrUpdateArticlesFromFiles(String docxFiles, string year, string majorCode)
-        {
+         {
             
                 try
                 {
@@ -266,7 +266,11 @@ namespace DepartmentService.Services
 
         public async Task<IEnumerable<ArticleInfo>> GetFilteredArticles(ArticleFilter articleFilter)
         {
-            var articles = (await _articleRepository.GetByFilter(articleFilter.ToExpression())).ToList();
+            List<Article> articles = (await _articleRepository.GetByFilter(articleFilter.ToExpression())).ToList();
+            foreach(Article article in articles)
+            {
+                article.Content = await RenderArticleContent(article);
+            }
             return articles.Select(d => d.ToArticleInfo()).ToList();
         }
     }

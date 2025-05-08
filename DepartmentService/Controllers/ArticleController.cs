@@ -72,7 +72,7 @@ namespace DepartmentService.Controllers
         }
 
         [HttpPost("upload-word")]
-        public async Task<IActionResult> UploadWordFile(ArticleUploadDTO articleUpload)
+        public async Task<IActionResult> UploadWordFile( ArticleUploadDTO articleUpload)
         {
             if (articleUpload.formFile == null || articleUpload.formFile.Length == 0)
             {

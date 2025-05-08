@@ -26,7 +26,7 @@ namespace DepartmentService.Repositories
 
         public async Task<IEnumerable<Article>> GetByFilter(Expression<Func<Article, bool>> expression)
         {
-            return await _context.Articles
+            return await _context.Articles.Include(a => a.medias)
                              .Where(expression)
                              .ToListAsync();
         }
