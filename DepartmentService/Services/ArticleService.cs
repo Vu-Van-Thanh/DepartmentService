@@ -3,6 +3,7 @@ using DepartmentService.Repositories;
 using DepartmentService.API.Entities;
 using HtmlAgilityPack;
 using Aspose.Words;
+using DepartmentService.DTO;
 namespace DepartmentService.Services
 {
     public interface IArticleService 
@@ -11,9 +12,11 @@ namespace DepartmentService.Services
         Task<ArticleInfo> GetArticleById(Guid articleId);
         Task<ArticleInfo> UpsertArticle(ArticleUpsertRequest article);
         Task<bool> DeleteArticle(Guid articleId);
-        Task ExtractNewsFromStream(Stream stream, string filepath);
-         Task<string> RenderArticleContent(Article article);
+        Task ExtractNewsFromStream(Stream stream, string filepath, string Title, string DepartmentID);
+        Task<string> RenderArticleContent(Article article);
         Task AddOrUpdateArticlesFromFiles(String docxFiles, string year, string majorCode);
+
+        Task<IEnumerable<ArticleInfo>> GetFilteredArticles(ArticleFilter articleFilter);
     }
     public class ArticleService : IArticleService
     {
@@ -65,11 +68,10 @@ namespace DepartmentService.Services
             }
         }
 
-        public async Task ExtractNewsFromStream(Stream stream, string filepath)
+        public async Task ExtractNewsFromStream(Stream stream, string filepath, string Title, string DepartmentID)
         {
             Guid articleId = Guid.NewGuid();
             DateTime datePost = DateTime.Now;
-            // Lấy đường dẫn đến thư mục chứa Solution
             string outputDirectory = GetStaticDataPathWithDate();
             // Tải tài liệu Word
             Document doc = new Document(stream);
@@ -86,7 +88,7 @@ namespace DepartmentService.Services
             string textContent = ParseHtmlContent(htmlContent, mediaList, articleId, datePost, name + " data ");
 
             // Lưu nội dung văn bản vào bảng new
-            Article news = new Article { ArticleId = articleId, Content = textContent, Title = name, DateCreated = datePost };
+            Article news = new Article { ArticleId = articleId, Content = textContent, Title = Title, DateCreated = datePost , DepartmentId = DepartmentID };
             await _articleRepository.UpsertAsync(news, d => d.ArticleId == articleId);
 
             // Lưu media vào bảng media
@@ -260,6 +262,12 @@ namespace DepartmentService.Services
             }
 
             return outputDirectory;
+        }
+
+        public async Task<IEnumerable<ArticleInfo>> GetFilteredArticles(ArticleFilter articleFilter)
+        {
+            var articles = (await _articleRepository.GetByFilter(articleFilter.ToExpression())).ToList();
+            return articles.Select(d => d.ToArticleInfo()).ToList();
         }
     }
 }

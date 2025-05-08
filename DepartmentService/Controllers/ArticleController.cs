@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using DepartmentService.Services;
 using DepartmentService.API.DTO;
+using DepartmentService.DTO;
 
 namespace DepartmentService.Controllers
 {
@@ -20,6 +21,13 @@ namespace DepartmentService.Controllers
         public async Task<ActionResult<IEnumerable<ArticleInfo>>> GetAllArticles()
         {
             var articles = await _articleService.GetAllArticles();
+            return Ok(articles);
+        }
+
+        [HttpGet("filter-article")]
+        public async Task<ActionResult<IEnumerable<ArticleInfo>>> GetFilteredArticles([FromQuery] ArticleFilter articleFilter)
+        {
+            var articles = await _articleService.GetFilteredArticles(articleFilter);
             return Ok(articles);
         }
 
@@ -64,23 +72,23 @@ namespace DepartmentService.Controllers
         }
 
         [HttpPost("upload-word")]
-        public async Task<IActionResult> UploadWordFile(IFormFile file)
+        public async Task<IActionResult> UploadWordFile(ArticleUploadDTO articleUpload)
         {
-            if (file == null || file.Length == 0)
+            if (articleUpload.formFile == null || articleUpload.formFile.Length == 0)
             {
                 return BadRequest("No file was uploaded.");
             }
 
-            if (!file.FileName.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
+            if (!articleUpload.formFile.FileName.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
             {
                 return BadRequest("Only .docx files are allowed.");
             }
 
             try
             {
-                using (var stream = file.OpenReadStream())
+                using (var stream = articleUpload.formFile.OpenReadStream())
                 {
-                    await _articleService.ExtractNewsFromStream(stream, file.FileName);
+                    await _articleService.ExtractNewsFromStream(stream, articleUpload.formFile.FileName, articleUpload.Title, articleUpload.DepartmentID);
                 }
 
                 return Ok(new { message = "File processed successfully." });
