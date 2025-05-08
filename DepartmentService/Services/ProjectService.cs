@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DepartmentService.API.DTO;
 using DepartmentService.API.Entities;
 using DepartmentService.API.Repositories;
+using DepartmentService.DTO;
 using DepartmentService.Repositories;
 
 namespace DepartmentService.Services
@@ -15,6 +16,7 @@ namespace DepartmentService.Services
         Task<ProjectInfo> UpsertProject(ProjectUpsertRequest project);
         Task<bool> DeleteProject(Guid id);
         Task<IEnumerable<ProjectInfo>> GetProjectsByDepartment(string departmentId);
+        Task<IEnumerable<ProjectInfo>> GetFilteredProjects(ProjectFilterDTO projectFilter);
     }
 
     public class ProjectService : IProjectService
@@ -100,6 +102,12 @@ namespace DepartmentService.Services
                 CreatedBy = project.CreatedBy,
                 UpdatedBy = project.UpdatedBy
             };
+        }
+
+        public async Task<IEnumerable<ProjectInfo>> GetFilteredProjects(ProjectFilterDTO projectFilter)
+        {
+            var projects = await _projectRepository.GetByFilter(projectFilter.ToExpression());
+            return projects.Select(p => ToProjectInfo(p)).ToList();
         }
     }
 } 

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using DepartmentService.Services;
 using DepartmentService.API.DTO;
+using DepartmentService.DTO;
 
 namespace DepartmentService.Controllers
 {
@@ -22,6 +23,12 @@ namespace DepartmentService.Controllers
             return Ok(projects);
         }
 
+        [HttpGet("filter-project")]
+        public async Task<ActionResult<IEnumerable<ProjectInfo>>> GetFilteredProjects([FromQuery] ProjectFilterDTO projectFilter)
+        {
+            var projects = await _projectService.GetFilteredProjects(projectFilter);
+            return Ok(projects);
+        }
         [HttpGet("{id}")]
         public async Task<ActionResult<ProjectInfo>> GetProjectById(Guid id)
         {

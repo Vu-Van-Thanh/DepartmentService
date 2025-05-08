@@ -1,6 +1,7 @@
 using DepartmentService.API.AppDbContext;
 using DepartmentService.API.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DepartmentService.Repositories
 {
@@ -11,6 +12,7 @@ namespace DepartmentService.Repositories
         Task<Project> UpsertAsync(Project project, Func<Project, bool> predicate);
         Task<bool> DeleteAsync(Func<Project, bool> predicate);
         Task<IEnumerable<Project>> GetByDepartmentIdAsync(string departmentId);
+        Task<IEnumerable<Project>> GetByFilter(Expression<Func<Project,bool>> expression);
     }
 
     public class ProjectRepository : IProjectRepository
@@ -68,6 +70,13 @@ namespace DepartmentService.Repositories
                 .Include(p => p.Department)
                 .Include(p => p.Tasks)
                 .Where(p => p.DepartmentId == departmentId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Project>> GetByFilter(Expression<Func<Project, bool>> expression)
+        {
+            return await _context.Projects
+                .Where(expression)
                 .ToListAsync();
         }
     }
