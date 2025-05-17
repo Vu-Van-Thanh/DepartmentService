@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using DepartmentService.Services;
 using DepartmentService.API.DTO;
+using DepartmentService.DTO;
 
 namespace DepartmentService.Controllers
 {
@@ -38,6 +39,13 @@ namespace DepartmentService.Controllers
         {
             var tasks = await _taskService.GetTasksByProject(projectId);
             return Ok(tasks);
+        }
+
+        [HttpGet("statistic")]
+        public async Task<ActionResult<IEnumerable<DepartmentPerformance>>> GetTaskStatistics(EmployeeInDepartment emp)
+        {
+            var statistics = await _taskService.GetTaskPerformance(emp);
+            return Ok(statistics);
         }
 
         [HttpGet("assigned/{assignedTo}")]

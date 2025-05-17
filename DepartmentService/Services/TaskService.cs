@@ -1,8 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DepartmentService.API.DTO;
 using DepartmentService.API.Entities;
+using DepartmentService.DTO;
 using DepartmentService.Repositories;
 
 namespace DepartmentService.Services
@@ -15,6 +16,7 @@ namespace DepartmentService.Services
         Task<bool> DeleteTask(Guid id);
         Task<IEnumerable<ProjectTaskInfo>> GetTasksByProject(Guid projectId);
         Task<IEnumerable<ProjectTaskInfo>> GetTasksByAssignedTo(Guid assignedTo);
+        Task<List<DepartmentPerformance>> GetTaskPerformance(EmployeeInDepartment emp);
     }
 
     public class ProjectTaskService : IProjectTaskService
@@ -99,6 +101,40 @@ namespace DepartmentService.Services
             };
         }
 
-       
+        public async Task<List<DepartmentPerformance>> GetTaskPerformance(EmployeeInDepartment emp)
+        {
+            List<DepartmentPerformance> result = new List<DepartmentPerformance>();
+            for(int i = 0; i < emp.DepartmentID.Count; i++)
+            {
+                string employeeID = emp.employeeIDList[i];
+                List<Guid> guids = employeeID.Split(',').Select(Guid.Parse).ToList();
+                List<ProjectTask> tasks = (await _taskRepository.GetTasksByAssignedUserIdsAsync(guids)).ToList();
+                var performanceScore = new double[4];
+                for (int quarter = 1; quarter <= 4; quarter++)
+                {
+                    var tasksInQuarter = tasks.Where(task =>
+                    {
+                        int taskQuarter = (task.StartDate.Month - 1) / 3 + 1;
+                        return taskQuarter == quarter;
+                    }).ToList();
+
+                    int totalTasks = tasksInQuarter.Count;
+                    int completedOnTime = tasksInQuarter.Count(t =>
+                        t.Status == "Completed" &&
+                        t.CompletedAt.HasValue &&
+                        t.CompletedAt.Value <= t.Deadline);
+
+                    double score = totalTasks == 0 ? 0 : (double)completedOnTime / totalTasks * 100;
+                    performanceScore[quarter - 1] = Math.Round(score, 2); 
+                }
+
+                result.Add(new DepartmentPerformance
+                {
+                    departmentName = emp.DepartmentID[i],
+                    performanceScore = performanceScore.ToList()
+                });
+            }
+            return result;
+        }
     }
 } 

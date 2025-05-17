@@ -12,6 +12,7 @@ namespace DepartmentService.Repositories
         Task<bool> DeleteAsync(Func<ProjectTask, bool> predicate);
         Task<IEnumerable<ProjectTask>> GetByProjectIdAsync(Guid projectId);
         Task<IEnumerable<ProjectTask>> GetByAssignedToAsync(Guid assignedTo);
+        Task<List<ProjectTask>> GetTasksByAssignedUserIdsAsync(List<Guid> userIds);
     }
 
     public class ProjectTaskRepository : IProjectTaskRepository
@@ -76,5 +77,13 @@ namespace DepartmentService.Repositories
                 .Where(t => t.AssignedTo == assignedTo)
                 .ToListAsync();
         }
+        public async Task<List<ProjectTask>> GetTasksByAssignedUserIdsAsync(List<Guid> userIds)
+        {
+            return await _context.Tasks
+                .Where(t => t.AssignedTo.HasValue && userIds.Contains(t.AssignedTo.Value))
+                .ToListAsync();
+        }
+
+
     }
 } 
