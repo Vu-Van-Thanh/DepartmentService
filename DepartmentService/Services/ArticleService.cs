@@ -37,6 +37,12 @@ namespace DepartmentService.Services
         public async Task<IEnumerable<ArticleInfo>> GetAllArticles()
         {
             List<Article> de = (await _articleRepository.GetAllAsync()).ToList();
+            foreach(Article article in de)
+            {
+                // Lấy danh sách media cho từng bài viết
+                article.medias = (await _mediasRepository.FindAsync(d => d.ArticleID == article.ArticleId)).ToList();
+                article.Content = await RenderArticleContent(article);
+            }
             return de.Select(d => d.ToArticleInfo()).ToList();
         }
 

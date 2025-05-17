@@ -66,7 +66,7 @@ namespace EmployeeService.Infrastructure.Kafka.Consumers
                 switch (topic)
                 {
                     
-                        // thêm các topic khác nếu cần
+                      
                 }
             }
         }
