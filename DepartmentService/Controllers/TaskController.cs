@@ -42,7 +42,7 @@ namespace DepartmentService.Controllers
         }
 
         [HttpGet("statistic")]
-        public async Task<ActionResult<IEnumerable<DepartmentPerformance>>> GetTaskStatistics(EmployeeInDepartment emp)
+        public async Task<ActionResult<IEnumerable<DepartmentPerformance>>> GetTaskStatistics( [FromQuery] EmployeeInDepartment emp)
         {
             var statistics = await _taskService.GetTaskPerformance(emp);
             return Ok(statistics);
