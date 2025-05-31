@@ -16,8 +16,8 @@ namespace DepartmentService.API.DTO
 
     public class JobPositionInfo
     {
+        public string? JobPositionId { get; set; }
         public string PositionName { get; set; }
-
         public string? Level { get; set; }
         public string Description { get; set; }
         public string DepartmentId { get; set; }
@@ -29,6 +29,7 @@ namespace DepartmentService.API.DTO
         {
             return new JobPositionInfo
             {
+                JobPositionId = jobPosition.JobPositionId,
                 PositionName = jobPosition.PositionName,
                 Level = jobPosition.Level.ToString(),
                 Description = jobPosition.Description,
