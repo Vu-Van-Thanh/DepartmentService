@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +16,12 @@ namespace DepartmentService.API.Entities
 
         [StringLength(500)]
         public string Description { get; set; }
+
+        // điều chỉnh
+        public string? Visibility { get; set; }
+        public string? Members { get; set; }
+        public string? ProjectAttachment { get; set; }
+        public string? ProjectManager { get; set; } // thiếu
 
         [Required]
         public DateTime StartDate { get; set; }

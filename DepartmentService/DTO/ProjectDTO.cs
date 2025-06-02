@@ -29,5 +29,9 @@ namespace DepartmentService.API.DTO
         public DateTime? EndDate { get; set; }
         public string Status { get; set; }
         public string DepartmentId { get; set; }
+        public string? ProjectManager { get; set; }
+        public string? Visibility { get; set; }
+        public string? Members { get; set; }
+        public IFormFile[] ProjectAttachment { get; set; }
     }
 } 
