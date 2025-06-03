@@ -9,7 +9,7 @@ namespace DepartmentService.Repositories
     {
         Task<IEnumerable<Project>> GetAllAsync();
         Task<Project> GetByIdAsync(Guid id);
-        Task<Project> UpsertAsync(Project project, Func<Project, bool> predicate);
+        Task<Project> UpsertAsync(Project project, Expression<Func<Project, bool>> predicate);
         Task<bool> DeleteAsync(Func<Project, bool> predicate);
         Task<IEnumerable<Project>> GetByDepartmentIdAsync(string departmentId);
         Task<IEnumerable<Project>> GetByFilter(Expression<Func<Project,bool>> expression);
@@ -40,9 +40,9 @@ namespace DepartmentService.Repositories
                 .FirstOrDefaultAsync(p => p.ProjectId == id);
         }
 
-        public async Task<Project> UpsertAsync(Project project, Func<Project, bool> predicate)
+        public async Task<Project> UpsertAsync(Project project, Expression<Func<Project, bool>> predicate)
         {
-            var existingProject = await _context.Projects.FirstOrDefaultAsync(p => predicate(p));
+            var existingProject = await _context.Projects.FirstOrDefaultAsync(predicate);
             if (existingProject != null)
             {
                 _context.Entry(existingProject).CurrentValues.SetValues(project);

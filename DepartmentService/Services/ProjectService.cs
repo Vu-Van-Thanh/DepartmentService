@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DepartmentService.API.DTO;
@@ -24,6 +24,7 @@ namespace DepartmentService.Services
         private readonly IProjectRepository _projectRepository;
         private readonly IDepartmentRepository _departmentRepository;
 
+
         public ProjectService(IProjectRepository projectRepository, IDepartmentRepository departmentRepository)
         {
             _projectRepository = projectRepository;
@@ -44,6 +45,32 @@ namespace DepartmentService.Services
 
         public async Task<ProjectInfo> UpsertProject(ProjectUpsertRequest request)
         {
+            var attachmentFileNames = new List<string>();
+            if (request.ProjectAttachment != null && request.ProjectAttachment.Length > 0)
+            {
+                var sanitizedProjectName = SanitizeFileName(request.Name);
+                var projectFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProjectAttachments", sanitizedProjectName);
+
+                if (!Directory.Exists(projectFolderPath))
+                    Directory.CreateDirectory(projectFolderPath);
+
+                foreach (var file in request.ProjectAttachment)
+                {
+                    if (file != null && file.Length > 0)
+                    {
+                        var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+                        var filePath = Path.Combine(projectFolderPath, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+
+                        // Lưu URL tương đối
+                        attachmentFileNames.Add($"/ProjectAttachments/{sanitizedProjectName}/{fileName}");
+                    }
+                }
+            }
             var project = new Project
             {
                 ProjectId = request.ProjectId ?? Guid.NewGuid(),
@@ -54,12 +81,25 @@ namespace DepartmentService.Services
                 Status = request.Status,
                 DepartmentId = request.DepartmentId,
                 CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
+                UpdatedAt = DateTime.UtcNow,
+                ProjectManager = request.ProjectManager,
+                ProjectAttachment = string.Join("|",attachmentFileNames),
+                Members = request.Members,
+                Visibility = request.Visibility
             };
 
             var result = await _projectRepository.UpsertAsync(project, p => p.ProjectId == project.ProjectId);
             return ToProjectInfo(result);
         }
+        private string SanitizeFileName(string name)
+        {
+            foreach (char c in Path.GetInvalidFileNameChars())
+            {
+                name = name.Replace(c, '_');
+            }
+            return name.Trim();
+        }
+
 
         public async Task<bool> DeleteProject(Guid id)
         {

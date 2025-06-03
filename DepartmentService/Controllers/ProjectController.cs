@@ -48,7 +48,7 @@ namespace DepartmentService.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProjectInfo>> CreateProject(ProjectUpsertRequest project)
+        public async Task<ActionResult<ProjectInfo>> CreateProject([FromForm] ProjectUpsertRequest project)
         {
             var createdProject = await _projectService.UpsertProject(project);
             return CreatedAtAction(nameof(GetProjectById), new { id = createdProject.ProjectId }, createdProject);

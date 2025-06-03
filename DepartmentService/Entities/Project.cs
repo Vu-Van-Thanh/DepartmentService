@@ -21,7 +21,7 @@ namespace DepartmentService.API.Entities
         public string? Visibility { get; set; }
         public string? Members { get; set; }
         public string? ProjectAttachment { get; set; }
-        public string? ProjectManager { get; set; } // thiếu
+        public string? ProjectManager { get; set; }
 
         [Required]
         public DateTime StartDate { get; set; }
@@ -44,7 +44,7 @@ namespace DepartmentService.API.Entities
 
         public DateTime? UpdatedAt { get; set; }
 
-        public string? CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }  
 
         public string? UpdatedBy { get; set; }
     }
