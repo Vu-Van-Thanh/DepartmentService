@@ -41,9 +41,42 @@ namespace DepartmentService.Services
             var task = await _taskRepository.GetByIdAsync(id);
             return task != null ? ToTaskInfo(task) : null;
         }
-
+        private string SanitizeFileName(string name)
+        {
+            foreach (char c in Path.GetInvalidFileNameChars())
+            {
+                name = name.Replace(c, '_');
+            }
+            return name.Trim();
+        }
         public async Task<ProjectTaskInfo> UpsertTask(ProjectTaskUpsertRequest request)
         {
+            var attachmentFileNames = new List<string>();
+            if (request.Attachments != null && request.Attachments.Length > 0)
+            {
+                var sanitizedTaskName = SanitizeFileName(request.Title);
+                var projectFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "TaskAttachments", sanitizedTaskName);
+
+                if (!Directory.Exists(projectFolderPath))
+                    Directory.CreateDirectory(projectFolderPath);
+
+                foreach (var file in request.Attachments)
+                {
+                    if (file != null && file.Length > 0)
+                    {
+                        var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+                        var filePath = Path.Combine(projectFolderPath, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+
+                        // Lưu URL tương đối
+                        attachmentFileNames.Add($"/TaskAttachments/{sanitizedTaskName}/{fileName}");
+                    }
+                }
+            }
             var task = new ProjectTask
             {
                 TaskId = request.TaskId ?? Guid.NewGuid(),
@@ -56,7 +89,8 @@ namespace DepartmentService.Services
                 ProjectId = request.ProjectId,
                 AssignedTo = request.AssignedTo,
                 CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
+                UpdatedAt = DateTime.UtcNow,
+                Attachments = string.Join("|", attachmentFileNames)
             };
 
             var result = await _taskRepository.UpsertAsync(task, t => t.TaskId == task.TaskId);

@@ -1,3 +1,4 @@
+using Microsoft.Identity.Client;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -45,5 +46,7 @@ namespace DepartmentService.API.Entities
         public string? CreatedBy { get; set; }
 
         public string? UpdatedBy { get; set; }
+
+        public string? Attachments { get; set; } 
     }
 } 

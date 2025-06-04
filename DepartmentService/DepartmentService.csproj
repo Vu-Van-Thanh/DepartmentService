@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\TaskAttachments\" />
     <Folder Include="wwwroot\ProjectAttachments\" />
   </ItemGroup>
 

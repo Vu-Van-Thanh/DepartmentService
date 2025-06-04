@@ -34,5 +34,6 @@ namespace DepartmentService.API.DTO
         public string Priority { get; set; }
         public Guid ProjectId { get; set; }
         public Guid? AssignedTo { get; set; }
+        public IFormFile[] Attachments { get; set; }
     }
 } 

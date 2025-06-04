@@ -570,6 +570,9 @@ namespace DepartmentService.Migrations
                     b.Property<Guid?>("AssignedTo")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Attachments")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("CompletedAt")
                         .HasColumnType("datetime2");
 
