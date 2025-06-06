@@ -56,7 +56,7 @@ namespace DepartmentService.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProjectTaskInfo>> CreateTask(ProjectTaskUpsertRequest task)
+        public async Task<ActionResult<ProjectTaskInfo>> CreateTask([FromForm] ProjectTaskUpsertRequest task)
         {
             var createdTask = await _taskService.UpsertTask(task);
             return CreatedAtAction(nameof(GetTaskById), new { id = createdTask.TaskId }, createdTask);

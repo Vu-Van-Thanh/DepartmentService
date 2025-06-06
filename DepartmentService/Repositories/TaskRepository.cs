@@ -1,6 +1,7 @@
 using DepartmentService.API.AppDbContext;
 using DepartmentService.API.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DepartmentService.Repositories
 {
@@ -8,7 +9,7 @@ namespace DepartmentService.Repositories
     {
         Task<IEnumerable<ProjectTask>> GetAllAsync();
         Task<ProjectTask> GetByIdAsync(Guid id);
-        Task<ProjectTask> UpsertAsync(ProjectTask task, Func<ProjectTask, bool> predicate);
+        Task<ProjectTask> UpsertAsync(ProjectTask task, Expression<Func<ProjectTask, bool>> predicate);
         Task<bool> DeleteAsync(Func<ProjectTask, bool> predicate);
         Task<IEnumerable<ProjectTask>> GetByProjectIdAsync(Guid projectId);
         Task<IEnumerable<ProjectTask>> GetByAssignedToAsync(Guid assignedTo);
@@ -38,9 +39,9 @@ namespace DepartmentService.Repositories
                 .FirstOrDefaultAsync(t => t.TaskId == id);
         }
 
-        public async Task<ProjectTask> UpsertAsync(ProjectTask task, Func<ProjectTask, bool> predicate)
+        public async Task<ProjectTask> UpsertAsync(ProjectTask task, Expression<Func<ProjectTask, bool>> predicate)
         {
-            var existingTask = await _context.Tasks.FirstOrDefaultAsync(t => predicate(t));
+            var existingTask = await _context.Tasks.FirstOrDefaultAsync(predicate);
             if (existingTask != null)
             {
                 _context.Entry(existingTask).CurrentValues.SetValues(task);
