@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using DepartmentService.API.Entities;
+using DepartmentService.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -13,6 +14,7 @@ namespace DepartmentService.API.AppDbContext
         public DbSet<Department> Departments { get; set; }
         public DbSet<JobPosition> JobPositions { get; set; }
         public DbSet<Facility> Facilities { get; set; }
+        public DbSet<AppliedCv> AppliedCvs { get; set; }
 
         public DbSet<OwnFacilities> OwnFacilities { get; set; }
         public DbSet<Article> Articles { get; set; }

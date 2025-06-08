@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using DepartmentService.Entities;
+using DepartmentService.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -10,9 +12,11 @@ namespace DepartmentService.Controllers
     public class JobController : ControllerBase
     {
         private readonly string _connectionString;
+        private readonly GmailScannerService _gmailScannerService;
         public JobController(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("JobConnection");
+            _gmailScannerService = new GmailScannerService();
         }
         
         [HttpGet]
@@ -35,6 +39,12 @@ namespace DepartmentService.Controllers
             {
                 return BadRequest($"Có lỗi xảy ra: {ex.Message}");
             }
+        }
+        [HttpGet("cv/scan")]
+        public async Task<ActionResult<List<AppliedCv>>> Scan()
+        {
+            var results = await _gmailScannerService.ScanAsync();
+            return Ok(results);
         }
 
     }
