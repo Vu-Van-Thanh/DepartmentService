@@ -4,13 +4,19 @@ using System.Net.Mail;
 using MailKit;
 using MailKit.Search;
 using MimeKit;
+using DepartmentService.Repositories;
 
 
 namespace DepartmentService.Services
 {
     public class GmailScannerService
     {
-       
+        private readonly ICVRepository cVRepository;
+        public GmailScannerService(ICVRepository _cVRepository)
+        {
+            cVRepository = _cVRepository;
+        }
+
         public async Task<List<AppliedCv>> ScanAsync()
         {
             var result = new List<AppliedCv>();
@@ -40,23 +46,45 @@ namespace DepartmentService.Services
                         using var stream = File.Create(filePath);
                         await part.Content.DecodeToAsync(stream);
 
-                        // đường dẫn tương đối để lưu trong DB
+                        
                         var relativePath = Path.Combine("AppliedCV", fileName).Replace("\\", "/");
                         attachmentPaths.Add(relativePath);
                     }
                 }
 
+                string? position = null;
+                string? type = null;
+                string? status = "PENDING"; 
+                string? applyDate = null;
+                if (!string.IsNullOrEmpty(message.Subject))
+                {
+                    var parts = message.Subject.Split(" - ");
+                    if (parts.Length >= 3 && parts[0].Trim() == "APPLIEDCV")
+                    {
+                        position = parts[1].Trim();
+                        type = parts[2].Trim();
+                    }
+                }
                 result.Add(new AppliedCv
                 {
                     FromMail = message.From.Mailboxes.FirstOrDefault()?.Address,
                     Header = message.Subject,
                     Body = message.TextBody ?? message.HtmlBody,
-                    Attachment = string.Join("|", attachmentPaths)
+                    Attachment = string.Join("|", attachmentPaths),
+                    Status = status,
+                    Position = position,
+                    Type = type,
+                    ApplyDate = applyDate
+
                 });
             }
 
+
+            await cVRepository.AddRange(result);
             await client.DisconnectAsync(true);
             return result;
         }
     }
+
+
 }

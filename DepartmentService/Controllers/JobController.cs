@@ -1,9 +1,12 @@
 ﻿using Dapper;
 using DepartmentService.Entities;
+using DepartmentService.Repositories;
 using DepartmentService.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using System.Configuration;
 
 namespace DepartmentService.Controllers
 {
@@ -12,15 +15,18 @@ namespace DepartmentService.Controllers
     public class JobController : ControllerBase
     {
         private readonly string _connectionString;
+        private readonly string _cvApplied;
+
         private readonly GmailScannerService _gmailScannerService;
-        public JobController(IConfiguration configuration)
+        public JobController(IConfiguration configuration, ICVRepository cVRepository)
         {
             _connectionString = configuration.GetConnectionString("JobConnection");
-            _gmailScannerService = new GmailScannerService();
+            _cvApplied = configuration.GetConnectionString("DefaultConnection");
+            _gmailScannerService = new GmailScannerService(cVRepository);
         }
-        
+
         [HttpGet]
-        public IActionResult GetAllJobs(int page = 1,  int pageSize = 50)
+        public IActionResult GetAllJobs(int page = 1, int pageSize = 50)
         {
             try
             {
@@ -47,5 +53,25 @@ namespace DepartmentService.Controllers
             return Ok(results);
         }
 
+        [HttpGet("CvApplied")]
+        public async Task<ActionResult<List<AppliedCv>>> GetAllCvs()
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_cvApplied))
+                {
+                    connection.Open();
+                    var sql = "SELECT * FROM AppliedCvs"; 
+                    var result = await connection.QueryAsync<AppliedCv>(sql);
+                    return Ok(result.ToList());
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Có lỗi xảy ra: {ex.Message}");
+            }
+
+        }
     }
+
 }

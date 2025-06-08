@@ -675,12 +675,13 @@ namespace DepartmentService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ApplyDate")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Attachment")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Body")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FromMail")
@@ -688,7 +689,15 @@ namespace DepartmentService.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Header")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CVID");

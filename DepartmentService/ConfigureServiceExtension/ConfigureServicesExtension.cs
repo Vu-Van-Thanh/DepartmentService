@@ -29,6 +29,7 @@ namespace DepartmentService.ConfigureServiceExtension
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IProjectTaskRepository, ProjectTaskRepository>();
             services.AddScoped<IJobPositionRepository, JobPositionRepository>();
+            services.AddScoped<ICVRepository, CVRepository>();
 
 
             // Add Services
