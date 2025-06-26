@@ -10,10 +10,12 @@ namespace DepartmentService.Controllers
     public class DepartmentController : ControllerBase
     {
         private readonly IDepartmentService _departmentService;
+        private readonly IWebHostEnvironment _env;
 
-        public DepartmentController(IDepartmentService departmentService)
+        public DepartmentController(IDepartmentService departmentService, IWebHostEnvironment env)
         {
             _departmentService = departmentService;
+            _env = env;
         }
 
         [HttpGet]
@@ -61,6 +63,26 @@ namespace DepartmentService.Controllers
                 return NotFound();
             }
             return NoContent();
+        }
+
+        [HttpGet("Statistic/{*subfolder}")]
+        public IActionResult GetFiles(string subfolder = "")
+        {
+            var rootPath = Path.Combine(_env.WebRootPath, subfolder ?? "");
+
+            if (!Directory.Exists(rootPath))
+                return NotFound("Thư mục không tồn tại.");
+
+            var files = Directory.GetFiles(rootPath, "*", SearchOption.AllDirectories)
+                .Select(path => new
+                {
+                    name = Path.GetFileName(path),
+                    fullPath = path.Replace(_env.WebRootPath, "").Replace("\\", "/"),
+                    modified = System.IO.File.GetLastWriteTime(path),
+                    size = new FileInfo(path).Length
+                }).ToList();
+
+            return Ok(files);
         }
     }
 }
